@@ -1,0 +1,644 @@
+<title>Đo Retrieval Học Phí</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #f1f3f6;
+    --surface: #ffffff;
+    --surface-2: #f7f8fb;
+    --ink: #151a22;
+    --ink-2: #39414f;
+    --muted: #646d7c;
+    --line: #dce0e8;
+    --line-strong: #c3cad6;
+    --seal: #b3402f;
+    --seal-soft: #f6e7e3;
+    --m-doc: #7d879a;
+    --m-content: #146b64;
+    --m-content-soft: #e0f0ee;
+    --pass: #17713f;
+    --partial: #9c6110;
+    --fail: #a93326;
+    --pass-bg: #e4f2e9;
+    --partial-bg: #fbeedb;
+    --fail-bg: #f8e6e3;
+    --shadow: 0 1px 2px rgba(21, 26, 34, .05), 0 8px 24px -14px rgba(21, 26, 34, .22);
+    --radius: 10px;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: "Be Vietnam Pro", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10131a;
+      --surface: #191e27;
+      --surface-2: #1f2530;
+      --ink: #e7eaf0;
+      --ink-2: #c2c9d6;
+      --muted: #8e98a8;
+      --line: #2a313d;
+      --line-strong: #3a434f;
+      --seal: #e4816d;
+      --seal-soft: #331f1b;
+      --m-doc: #8a95a6;
+      --m-content: #4cbdaf;
+      --m-content-soft: #14312f;
+      --pass: #4cbf76;
+      --partial: #dda13f;
+      --fail: #e8786a;
+      --pass-bg: #16301f;
+      --partial-bg: #33260f;
+      --fail-bg: #331b18;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 28px -16px rgba(0, 0, 0, .8);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10131a;
+    --surface: #191e27;
+    --surface-2: #1f2530;
+    --ink: #e7eaf0;
+    --ink-2: #c2c9d6;
+    --muted: #8e98a8;
+    --line: #2a313d;
+    --line-strong: #3a434f;
+    --seal: #e4816d;
+    --seal-soft: #331f1b;
+    --m-doc: #8a95a6;
+    --m-content: #4cbdaf;
+    --m-content-soft: #14312f;
+    --pass: #4cbf76;
+    --partial: #dda13f;
+    --fail: #e8786a;
+    --pass-bg: #16301f;
+    --partial-bg: #33260f;
+    --fail-bg: #331b18;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 28px -16px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 600; letter-spacing: -.01em; }
+  p { margin: 0; }
+  .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+  .topbar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-in {
+    max-width: 1080px; margin: 0 auto;
+    padding-block: 12px; padding-inline: 20px;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px;
+  }
+  .brand { font-size: 16px; font-weight: 700; letter-spacing: -.02em; }
+  .brand span { color: var(--seal); }
+  .topbar .chips { margin-left: auto; display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 8px; border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface-2);
+    font-size: 11.5px; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .chip.mono { font-family: var(--mono); }
+  .chip-lab { color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-size: 10px; }
+
+  main { max-width: 1080px; margin: 0 auto; padding-block: 26px 60px; padding-inline: 20px; }
+  section + section { margin-top: 34px; }
+  .sec-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 4px; }
+  .sec-head h2 { font-size: 19px; }
+  .kicker {
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--muted); font-weight: 600;
+  }
+  .lede { color: var(--ink-2); max-width: 66ch; margin-top: 8px; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  /* ---- thesis / dumbbell ---- */
+  .thesis {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 20px;
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 16px 0 10px; font-size: 12.5px; color: var(--ink-2); }
+  .legend i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: 1px; }
+  .dot-doc { background: var(--m-doc); }
+  .dot-content { background: var(--m-content); }
+
+  .dumb { display: grid; gap: 2px; }
+  .dumb-row {
+    display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 12px;
+    padding: 9px 0; border-top: 1px solid var(--line);
+  }
+  .dumb-row:first-child { border-top: 0; }
+  .dumb-name { font-family: var(--mono); font-size: 12.5px; font-weight: 500; }
+  .dumb-name em { display: block; font-style: normal; font-size: 10.5px; color: var(--muted); font-family: var(--sans); }
+  .track { position: relative; height: 26px; }
+  .track::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 50%;
+    height: 1px; background: var(--line); transform: translateY(-50%);
+  }
+  .gap-line { position: absolute; top: 50%; height: 3px; transform: translateY(-50%); background: var(--seal); opacity: .55; border-radius: 2px; }
+  .pt { position: absolute; top: 50%; width: 15px; height: 15px; border-radius: 50%; transform: translate(-50%, -50%); border: 2px solid var(--surface); }
+  .pt-doc { background: var(--m-doc); }
+  .pt-content { background: var(--m-content); }
+  .pt-val { position: absolute; top: 50%; transform: translate(-50%, -50%); font-family: var(--mono); font-size: 10px; color: var(--surface); font-weight: 600; z-index: 2; pointer-events: none; }
+  .axis { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 6px; padding-left: 108px; }
+  @media (max-width: 620px) {
+    .dumb-row { grid-template-columns: 1fr; gap: 2px; }
+    .axis { padding-left: 0; }
+  }
+
+  /* ---- strategy selector ---- */
+  .strat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(212px, 1fr)); gap: 10px; margin-top: 14px; }
+  .strat {
+    text-align: left; cursor: pointer; font: inherit; color: inherit;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 13px 14px;
+    display: grid; gap: 7px; transition: border-color .12s, box-shadow .12s;
+  }
+  .strat:hover { border-color: var(--line-strong); }
+  .strat[aria-pressed="true"] { border-color: var(--seal); box-shadow: 0 0 0 1px var(--seal); background: var(--surface); }
+  .strat:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; }
+  .strat-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .strat-name { font-family: var(--mono); font-weight: 600; font-size: 13.5px; }
+  .strat-owner { font-size: 11px; color: var(--muted); }
+  .strat-scores { display: flex; gap: 14px; }
+  .sc { display: grid; gap: 1px; }
+  .sc-lab { font-size: 9.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+  .sc-val { font-family: var(--mono); font-size: 17px; font-weight: 600; line-height: 1.1; }
+  .sc-doc .sc-val { color: var(--m-doc); }
+  .sc-content .sc-val { color: var(--m-content); }
+  .strat-meta { font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
+
+  /* ---- queries ---- */
+  .q { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); margin-top: 10px; overflow: hidden; }
+  .q-head {
+    width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer;
+    background: none; border: 0; padding: 13px 15px;
+    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px;
+  }
+  .q-head:focus-visible { outline: 2px solid var(--seal); outline-offset: -2px; }
+  .q-no { font-family: var(--mono); font-size: 11px; color: var(--muted); font-weight: 600; }
+  .q-text { font-weight: 500; font-size: 14.5px; }
+  .q-sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .verdict { font-family: var(--mono); font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .v-pass { background: var(--pass-bg); color: var(--pass); }
+  .v-partial { background: var(--partial-bg); color: var(--partial); }
+  .v-fail { background: var(--fail-bg); color: var(--fail); }
+  .q-body { border-top: 1px solid var(--line); padding: 15px; background: var(--surface-2); display: grid; gap: 14px; }
+  .field-lab { font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .gold { border-left: 3px solid var(--seal); padding-left: 11px; }
+  .needles { display: flex; flex-wrap: wrap; gap: 6px; }
+  .needle { font-family: var(--mono); font-size: 11.5px; padding: 3px 9px; border-radius: 6px; }
+  .needle.ok { background: var(--pass-bg); color: var(--pass); }
+  .needle.no { background: var(--fail-bg); color: var(--fail); text-decoration: line-through; }
+
+  .hits { display: grid; gap: 8px; }
+  .hit { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 11px 12px; display: grid; gap: 7px; }
+  .hit.is-gold { border-color: var(--seal); background: linear-gradient(to right, var(--seal-soft), var(--surface) 42%); }
+  .hit-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 9px; }
+  .rank { font-family: var(--mono); font-size: 10.5px; font-weight: 600; color: var(--muted); }
+  .doc { font-family: var(--mono); font-size: 12px; font-weight: 500; overflow-wrap: anywhere; }
+  .score { margin-left: auto; font-family: var(--mono); font-size: 12.5px; font-weight: 600; }
+  .gold-tag { font-size: 10px; font-weight: 700; letter-spacing: .06em; color: var(--seal); text-transform: uppercase; }
+  .snippet {
+    font-family: var(--mono); font-size: 11.5px; line-height: 1.5; color: var(--ink-2);
+    max-height: 108px; overflow-y: auto; white-space: pre-wrap;
+    background: var(--surface-2); border-radius: 6px; padding: 8px 9px;
+    border: 1px solid var(--line);
+  }
+  .snippet mark { background: var(--pass-bg); color: var(--pass); font-weight: 600; border-radius: 2px; padding: 0 2px; }
+  .answer { background: var(--m-content-soft); border-radius: 8px; padding: 11px 12px; font-size: 13.5px; color: var(--ink); }
+
+  /* ---- A/B ---- */
+  .tabs { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .tab {
+    font: inherit; color: var(--ink-2); cursor: pointer; font-size: 12.5px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px;
+  }
+  .tab[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .tab:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; }
+  .ab-grid { display: grid; gap: 10px; margin-top: 12px; }
+  .ab-row { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+  .ab-name { font-family: var(--mono); font-size: 13px; font-weight: 600; margin-bottom: 9px; }
+  .ab-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 620px) { .ab-cols { grid-template-columns: 1fr; } }
+  .ab-col { border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; background: var(--surface-2); }
+  .ab-col.on { border-color: var(--m-content); }
+  .ab-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
+  .ab-lab { font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; }
+  .ab-hit { display: flex; align-items: baseline; gap: 7px; font-family: var(--mono); font-size: 11px; padding: 2px 0; }
+  .ab-hit .d { overflow-wrap: anywhere; }
+  .ab-hit .s { margin-left: auto; color: var(--muted); }
+  .tagx { font-size: 9.5px; padding: 1px 5px; border-radius: 4px; background: var(--fail-bg); color: var(--fail); white-space: nowrap; }
+  .tago { font-size: 9.5px; padding: 1px 5px; border-radius: 4px; background: var(--surface); border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+
+  /* ---- corpus ---- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); margin-top: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 12.5px; min-width: 620px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; background: var(--surface-2); }
+  tr:last-child td { border-bottom: 0; }
+  td.mono { font-family: var(--mono); font-size: 11.5px; }
+
+  footer { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: grid; gap: 5px; }
+  footer code { font-family: var(--mono); color: var(--ink-2); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">Đo Retrieval <span>Học Phí</span></div>
+    <div class="chips" id="topchips"></div>
+  </div>
+</header>
+
+<main>
+  <section class="thesis">
+    <div class="sec-head">
+      <span class="kicker">Phát hiện chính</span>
+    </div>
+    <h2>Hai cách chấm cho hai người thắng khác nhau</h2>
+    <p class="lede">
+      Chấm theo <strong>doc_id</strong> chỉ hỏi "tài liệu đúng có nằm trong top-3 không". Chấm theo
+      <strong>nội dung</strong> hỏi thêm "ngữ cảnh lấy về có thật sự chứa chuỗi trả lời được câu hỏi không".
+      Khoảng hở giữa hai chấm tròn là phần điểm bị thổi phồng — và nó đảo ngược thứ hạng.
+    </p>
+    <div class="legend">
+      <span><i class="dot-doc"></i>Mức doc_id</span>
+      <span><i class="dot-content"></i>Mức nội dung</span>
+      <span style="color:var(--seal)">▬ khoảng thổi phồng</span>
+    </div>
+    <div class="dumb" id="dumb"></div>
+    <div class="axis"><span>0</span><span>5</span><span>10 điểm</span></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="kicker">Bước 1</span>
+      <h2>Chọn chiến lược chunking</h2>
+    </div>
+    <p class="lede">Cùng corpus, cùng 5 câu hỏi, cùng vector store — chỉ đổi dòng chọn chunker.</p>
+    <div class="strat-grid" id="strats"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="kicker">Bước 2</span>
+      <h2>5 câu hỏi đánh giá</h2>
+    </div>
+    <p class="lede">Bấm vào một câu để xem top-3 chunk truy xuất được, chuỗi đáp án bắt buộc, và câu trả lời của agent.</p>
+    <div id="queries"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="kicker">Bước 3</span>
+      <h2>Metadata filter có giúp ích không</h2>
+    </div>
+    <p class="lede">Chạy cùng một câu hai lần — một lần không lọc, một lần có lọc — trên cả bốn chiến lược.</p>
+    <div class="tabs" id="abtabs"></div>
+    <div class="ab-grid" id="ab"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="kicker">Nguồn</span>
+      <h2>Corpus</h2>
+    </div>
+    <div class="table-wrap">
+      <table id="corpus">
+        <thead><tr><th>doc_id</th><th>Tài liệu</th><th>audience</th><th>level</th><th>Phiên bản</th><th>Ký tự</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <div>Lab 07 — Nền tảng Dữ liệu, Embedding &amp; Vector Store · K4-L3A · nhóm Aura</div>
+    <div>Tái lập: <code>python bench.py --all --json demo/benchmark.json</code> rồi <code>python demo/build.py</code></div>
+    <div id="genline"></div>
+  </footer>
+</main>
+
+<script type="application/json" id="bench-data">__BENCHMARK_DATA__</script>
+<script>
+  (function () {
+    "use strict";
+    var DATA = JSON.parse(document.getElementById("bench-data").textContent);
+
+    var OWNER = {
+      fixed: "Nguyễn Thu Hằng",
+      sentence: "Đậu Văn Thạch",
+      recursive: "Đinh Quốc Bảo",
+      heading: "Lê Thanh Tùng · custom"
+    };
+    var ORDER = ["heading", "sentence", "recursive", "fixed"];
+
+    var strategies = DATA.strategies.slice().sort(function (a, b) {
+      return ORDER.indexOf(a.name) - ORDER.indexOf(b.name);
+    });
+    var byName = {};
+    strategies.forEach(function (s) { byName[s.name] = s; });
+    var queryById = {};
+    DATA.queries.forEach(function (q) { queryById[q.id] = q; });
+
+    var current = byName.heading ? "heading" : strategies[0].name;
+    var openQuery = DATA.queries[0].id;
+    var currentAb = Object.keys(DATA.ab)[0];
+
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    }
+    function pct(v) { return (v / 10 * 100) + "%"; }
+
+    /* ---------- top bar chips ---------- */
+    (function () {
+      var wrap = document.getElementById("topchips");
+      var backend = String(DATA.backend).replace(/\s*\(cache:[^)]*\)/, "");
+      [["backend", backend], ["corpus", DATA.corpus.length + " tài liệu"], ["top-k", String(DATA.top_k)]]
+        .forEach(function (pair) {
+          var c = el("span", "chip mono");
+          c.appendChild(el("span", "chip-lab", pair[0]));
+          c.appendChild(document.createTextNode(pair[1]));
+          wrap.appendChild(c);
+        });
+      document.getElementById("genline").textContent = "Số liệu chạy ngày " + DATA.generated_at + ".";
+    })();
+
+    /* ---------- dumbbell ---------- */
+    (function () {
+      var wrap = document.getElementById("dumb");
+      strategies.forEach(function (s) {
+        var row = el("div", "dumb-row");
+        var name = el("div", "dumb-name");
+        name.appendChild(document.createTextNode(s.name));
+        name.appendChild(el("em", null, OWNER[s.name] || ""));
+        row.appendChild(name);
+
+        var track = el("div", "track");
+        var lo = Math.min(s.naive_total, s.strict_total);
+        var hi = Math.max(s.naive_total, s.strict_total);
+        if (hi > lo) {
+          var gap = el("div", "gap-line");
+          gap.style.left = pct(lo);
+          gap.style.width = pct(hi - lo);
+          track.appendChild(gap);
+        }
+        [["doc", s.naive_total], ["content", s.strict_total]].forEach(function (p) {
+          var dot = el("div", "pt pt-" + p[0]);
+          dot.style.left = pct(p[1]);
+          dot.title = (p[0] === "doc" ? "Mức doc_id: " : "Mức nội dung: ") + p[1] + "/10";
+          track.appendChild(dot);
+          var lab = el("div", "pt-val", String(p[1]));
+          lab.style.left = pct(p[1]);
+          track.appendChild(lab);
+        });
+        row.appendChild(track);
+        wrap.appendChild(row);
+      });
+    })();
+
+    /* ---------- strategy cards ---------- */
+    function renderStrategies() {
+      var wrap = document.getElementById("strats");
+      wrap.textContent = "";
+      strategies.forEach(function (s) {
+        var b = el("button", "strat");
+        b.type = "button";
+        b.setAttribute("aria-pressed", String(s.name === current));
+
+        var top = el("div", "strat-top");
+        top.appendChild(el("span", "strat-name", s.name));
+        top.appendChild(el("span", "strat-owner", OWNER[s.name] || ""));
+        b.appendChild(top);
+
+        var scores = el("div", "strat-scores");
+        [["doc", "doc_id", s.naive_total], ["content", "nội dung", s.strict_total]].forEach(function (p) {
+          var g = el("div", "sc sc-" + p[0]);
+          g.appendChild(el("div", "sc-lab", p[1]));
+          g.appendChild(el("div", "sc-val", p[2] + "/10"));
+          scores.appendChild(g);
+        });
+        b.appendChild(scores);
+
+        b.appendChild(el("div", "strat-meta",
+          s.total_chunks + " chunk · TB " + s.avg_length + " · " + s.min_length + "–" + s.max_length + " ký tự"));
+
+        b.addEventListener("click", function () {
+          current = s.name;
+          renderStrategies();
+          renderQueries();
+        });
+        wrap.appendChild(b);
+      });
+    }
+
+    /* ---------- queries ---------- */
+    function verdict(row) {
+      if (row.strict_score === 2) return ["v-pass", "2/2 nội dung"];
+      if (row.strict_score === 1) return ["v-partial", "1/2 nội dung"];
+      return ["v-fail", "0/2 nội dung"];
+    }
+
+    function highlight(text, needles, missing) {
+      var frag = document.createDocumentFragment();
+      var found = needles.filter(function (n) { return missing.indexOf(n) === -1 && text.indexOf(n) !== -1; });
+      if (!found.length) { frag.appendChild(document.createTextNode(text)); return frag; }
+      var rest = text;
+      while (rest.length) {
+        var best = -1, bestNeedle = null;
+        found.forEach(function (n) {
+          var i = rest.indexOf(n);
+          if (i !== -1 && (best === -1 || i < best)) { best = i; bestNeedle = n; }
+        });
+        if (best === -1) { frag.appendChild(document.createTextNode(rest)); break; }
+        if (best > 0) frag.appendChild(document.createTextNode(rest.slice(0, best)));
+        var m = el("mark", null, bestNeedle);
+        frag.appendChild(m);
+        rest = rest.slice(best + bestNeedle.length);
+      }
+      return frag;
+    }
+
+    function renderQueries() {
+      var wrap = document.getElementById("queries");
+      wrap.textContent = "";
+      var strat = byName[current];
+
+      strat.rows.forEach(function (row) {
+        var q = queryById[row.id];
+        var card = el("div", "q");
+
+        var head = el("button", "q-head");
+        head.type = "button";
+        head.setAttribute("aria-expanded", String(row.id === openQuery));
+        head.appendChild(el("span", "q-no", "Q" + row.id));
+
+        var mid = el("div");
+        mid.appendChild(el("div", "q-text", q.query));
+        var sub = el("div", "q-sub");
+        sub.textContent = q.kind + (q.metadata_filter ? " · filter " + JSON.stringify(q.metadata_filter) : "");
+        mid.appendChild(sub);
+        head.appendChild(mid);
+
+        var v = verdict(row);
+        head.appendChild(el("span", "verdict " + v[0], v[1]));
+        card.appendChild(head);
+
+        var body = el("div", "q-body");
+        body.hidden = row.id !== openQuery;
+
+        var g = el("div", "gold");
+        g.appendChild(el("div", "field-lab", "Câu trả lời chuẩn — " + q.gold_doc_id));
+        g.appendChild(el("p", null, q.gold_answer));
+        body.appendChild(g);
+
+        var nWrap = el("div");
+        nWrap.appendChild(el("div", "field-lab", "Chuỗi bắt buộc phải có trong ngữ cảnh"));
+        var needles = el("div", "needles");
+        q.must_contain.forEach(function (n) {
+          var missing = row.missing.indexOf(n) !== -1;
+          needles.appendChild(el("span", "needle " + (missing ? "no" : "ok"), n));
+        });
+        nWrap.appendChild(needles);
+        body.appendChild(nWrap);
+
+        var hWrap = el("div");
+        hWrap.appendChild(el("div", "field-lab",
+          "Top-" + row.hits.length + " chunk truy xuất được" +
+          (row.gold_rank ? " · gold ở hạng " + row.gold_rank : " · gold KHÔNG có trong top-3")));
+        var hits = el("div", "hits");
+        row.hits.forEach(function (hit, i) {
+          var isGold = hit.doc_id === q.gold_doc_id;
+          var h = el("div", "hit" + (isGold ? " is-gold" : ""));
+          var top = el("div", "hit-top");
+          top.appendChild(el("span", "rank", "#" + (i + 1)));
+          top.appendChild(el("span", "doc", hit.doc_id + "#" + hit.chunk_index));
+          if (hit.audience) top.appendChild(el("span", "chip", "audience: " + hit.audience));
+          if (hit.level) top.appendChild(el("span", "chip", "level: " + hit.level));
+          if (isGold) top.appendChild(el("span", "gold-tag", "gold"));
+          top.appendChild(el("span", "score num", hit.score.toFixed(4)));
+          h.appendChild(top);
+          var snip = el("div", "snippet");
+          snip.appendChild(highlight(hit.content, q.must_contain, row.missing));
+          h.appendChild(snip);
+          hits.appendChild(h);
+        });
+        hWrap.appendChild(hits);
+        body.appendChild(hWrap);
+
+        var aWrap = el("div");
+        aWrap.appendChild(el("div", "field-lab", "Câu trả lời của KnowledgeBaseAgent"));
+        aWrap.appendChild(el("div", "answer", row.answer));
+        body.appendChild(aWrap);
+
+        card.appendChild(body);
+
+        head.addEventListener("click", function () {
+          openQuery = (openQuery === row.id) ? -1 : row.id;
+          renderQueries();
+        });
+        wrap.appendChild(card);
+      });
+    }
+
+    /* ---------- A/B ---------- */
+    function renderAb() {
+      var tabs = document.getElementById("abtabs");
+      tabs.textContent = "";
+      Object.keys(DATA.ab).forEach(function (qid) {
+        var b = el("button", "tab");
+        b.type = "button";
+        b.setAttribute("aria-pressed", String(qid === currentAb));
+        var f = DATA.ab[qid].filter;
+        var k = Object.keys(f)[0];
+        b.textContent = "Q" + qid + " · " + k + "=" + f[k];
+        b.addEventListener("click", function () { currentAb = qid; renderAb(); });
+        tabs.appendChild(b);
+      });
+
+      var block = DATA.ab[currentAb];
+      var q = queryById[Number(currentAb)];
+      var filterKey = Object.keys(block.filter)[0];
+      var wanted = block.filter[filterKey];
+
+      var wrap = document.getElementById("ab");
+      wrap.textContent = "";
+
+      var note = el("div", "lede");
+      note.appendChild(el("strong", null, "Q" + currentAb + ": "));
+      note.appendChild(document.createTextNode(q.query));
+      wrap.appendChild(note);
+
+      strategies.forEach(function (s) {
+        var pair = block.per_strategy[s.name];
+        if (!pair) return;
+        var row = el("div", "ab-row");
+        row.appendChild(el("div", "ab-name", s.name));
+        var cols = el("div", "ab-cols");
+
+        [["off", "Không filter"], ["on", "Có filter"]].forEach(function (p) {
+          var side = pair[p[0]];
+          var col = el("div", "ab-col" + (p[0] === "on" ? " on" : ""));
+          var head = el("div", "ab-head");
+          head.appendChild(el("span", "ab-lab", p[1]));
+          var sv = verdict({ strict_score: side.strict_score });
+          head.appendChild(el("span", "verdict " + sv[0], side.strict_score + "/2"));
+          col.appendChild(head);
+
+          side.hits.forEach(function (hit) {
+            var line = el("div", "ab-hit");
+            line.appendChild(el("span", "d", hit.doc_id));
+            var val = hit[filterKey];
+            line.appendChild(el("span", val === wanted ? "tago" : "tagx", filterKey[0] + "=" + val));
+            line.appendChild(el("span", "s num", hit.score.toFixed(3)));
+            col.appendChild(line);
+          });
+          cols.appendChild(col);
+        });
+        row.appendChild(cols);
+        wrap.appendChild(row);
+      });
+    }
+
+    /* ---------- corpus ---------- */
+    (function () {
+      var tbody = document.querySelector("#corpus tbody");
+      DATA.corpus.forEach(function (d) {
+        var tr = el("tr");
+        tr.appendChild(el("td", "mono", d.doc_id));
+        tr.appendChild(el("td", null, d.title));
+        tr.appendChild(el("td", "mono", d.audience || "—"));
+        tr.appendChild(el("td", "mono", d.level || "—"));
+        tr.appendChild(el("td", "mono", d.document_version || "—"));
+        tr.appendChild(el("td", "mono", String(d.chars)));
+        tbody.appendChild(tr);
+      });
+    })();
+
+    renderStrategies();
+    renderQueries();
+    renderAb();
+  })();
+</script>

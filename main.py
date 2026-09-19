@@ -20,13 +20,14 @@ from src.embeddings import (
 from src.models import Document
 from src.store import EmbeddingStore
 
+# Corpus that su cua nhom: hoc phi dai hoc (xem data/hoc-phi/README.md).
+# Cac file demo khong lien quan den chu de da duoc go khoi repo.
 SAMPLE_FILES = [
-    "data/python_intro.txt",
-    "data/vector_store_notes.md",
-    "data/rag_system_design.md",
-    "data/customer_support_playbook.txt",
-    "data/chunking_experiment_report.md",
-    "data/vi_retrieval_notes.md",
+    "data/hoc-phi/ussh-hoc-phi-dai-hoc-2026-2027.md",
+    "data/hoc-phi/ussh-hoc-phi-sau-dai-hoc-2026-2027.md",
+    "data/hoc-phi/utt-muc-thu-hoc-phi-2026-2027.md",
+    "data/hoc-phi/hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026.md",
+    "data/hoc-phi/ntu-khung-hoc-phi-nd238-2025.md",
 ]
 
 
@@ -105,6 +106,16 @@ def run_manual_demo(question: str | None = None, sample_files: list[str] | None 
     else:
         embedder = _mock_embed
 
+    # Quy tac fallback cua lab: chon local/openai/gemini ma thiet lap bi thieu thi
+    # quay ve mock. Bat loi o constructor thoi la chua du — mot API key hop le
+    # nhung het credit chi bao loi o LAN GOI DAU TIEN, luc do store da chay roi.
+    if embedder is not _mock_embed:
+        try:
+            embedder("kiem tra ket noi embedding")
+        except Exception as error:
+            print(f"Backend '{provider}' khong dung duoc ({str(error)[:120]}); quay ve mock.")
+            embedder = _mock_embed
+
     print(f"\nEmbedding backend: {getattr(embedder, '_backend_name', embedder.__class__.__name__)}")
 
     store = EmbeddingStore(collection_name="manual_test_store", embedding_fn=embedder)
@@ -127,6 +138,13 @@ def run_manual_demo(question: str | None = None, sample_files: list[str] | None 
 
 
 def main() -> int:
+    # Console Windows mac dinh la cp1252 -> in corpus tieng Viet se UnicodeEncodeError.
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
     question = " ".join(sys.argv[1:]).strip() if len(sys.argv) > 1 else None
     return run_manual_demo(question=question)
 

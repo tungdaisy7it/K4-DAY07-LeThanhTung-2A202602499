@@ -1,0 +1,368 @@
+==============================================================================
+BENCHMARK RETRIEVAL — Lab 07 K4-L3A | Lê Thanh Tùng — 2A202602499
+==============================================================================
+Corpus            : data\hoc-phi (5 tài liệu)
+Embedding provider: gemini -> gemini-embedding-001 (cache: 181 vector)
+Top-k             : 3
+
+==============================================================================
+CHIẾN LƯỢC: fixed  (FixedSizeChunker)
+==============================================================================
+Đã nạp 40 chunk từ 5 tài liệu | độ dài TB 556 ký tự | ngắn nhất 115 | dài nhất 600
+
+--- Q1 [tra số liệu cụ thể] ---
+Câu hỏi : Sinh viên các ngành khóa QH-2023 trở về trước đóng bao nhiêu tiền một tín chỉ?
+Filter  : None
+Gold    : ussh-hoc-phi-dai-hoc-2026-2027 — 530.000đ/tín chỉ/hệ số, thu theo tín chỉ đăng ký học (theo Nghị định 238/2025/NĐ-CP).
+  top1 score=+0.8292 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        trở về trước  Mức thu: **700.000đ/tín chỉ**. Hình thức thu: thu theo tín chỉ đăng ký học.  ### 3.2. Các ngành ...
+  top2 score=+0.8180 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+         Hình thức thu: thu theo tín chỉ đăng ký học.  ### 1.2. Các ngành khóa QH-2024-X  Các ngành đã được kiểm định ...
+  top3 score=+0.8127 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        khóa QH-2024-X còn lại: **700.000đ/tín chỉ**.  ### 3.3. Các ngành khóa QH-2025-X và QH-2026-X  Các ngành đã đư...
+Agent   : Các ngành khóa QH-2024-X còn lại: **700.000đ/tín chỉ**. [1] khóa QH-2024-X còn lại: **700.000đ/tín chỉ**. [3]
+Chấm    : doc_id-level=2/2 | nội dung-level=0/2 | gold ở hạng 1
+          thiếu trong ngữ cảnh: ['530.000đ/tín chỉ']
+
+--- Q2 [MƠ HỒ VỀ ĐỐI TƯỢNG — cần metadata_filter audience=student] ---
+Câu hỏi : Học phí một tín chỉ hệ vừa làm vừa học được tính như thế nào?
+Filter  : {'audience': 'student'}
+Gold    : ussh-hoc-phi-dai-hoc-2026-2027 — USSH thu 700.000đ/tín chỉ cho các ngành khóa QH-2023 trở về trước và các ngành 'còn lại' của những khóa sau; ngành đã kiểm định thu 880.000đ hoặc 1.050.000đ/tín chỉ.
+  top1 score=+0.7956 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+         phí trình độ đại học chính quy, VLVH, liên thông  Mức học phí trình độ đại học chính quy và vừa làm vừa học đ...
+  top2 score=+0.7427 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+         Mức học phí trình độ đại học hình thức đào tạo từ xa  **590.000đ/1 tín chỉ**.  ## 4. Các lớp tăng cường ngoại...
+  top3 score=+0.7363 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  
+        như sau.  ## 1. Mức thu  ### 1.1. Học bù  Bằng mức thu học phí lần đầu đối với từng đối tượng.  ### 1.2. Học l...
+Agent   : Mức học phí trình độ đại học chính quy và vừa làm vừa học đối với **các khóa 74 trở về trước**: khối ngành kinh doanh, quản lý **590.000đ/1 tín chỉ**; khối ngành CNTT, công nghệ kỹ thuật, môi trường, dịch vụ vận tải **650.000đ/1 tín chỉ**. [1] - Đào tạo chính quy chương trình chuẩn, đại học chính qu
+Chấm    : doc_id-level=0/2 | nội dung-level=0/2 | gold ở hạng KHÔNG CÓ TRONG TOP-3
+          thiếu trong ngữ cảnh: ['700.000đ/tín chỉ']
+
+--- Q3 [tra mốc thời gian] ---
+Câu hỏi : Thời gian nộp học phí học lại học kỳ phụ năm học 2025-2026 là khi nào?
+Filter  : None
+Gold    : hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 — Từ ngày 23/05/2026 đến hết ngày 01/06/2026 (Thông báo 731/TB-HVTC).
+  top1 score=+0.7962 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  <<< GOLD
+        # Thông báo về việc thu học phí học lại, học cải thiện điểm, học bù học kỳ phụ năm học 2025-2026 đối với sinh ...
+  top2 score=+0.7580 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  <<< GOLD
+        g đại học; đại học văn bằng 2; đại học vừa làm vừa học: **840.000đ/tín chỉ**. - Lưu học sinh Lào: **840.000đ/t...
+  top3 score=+0.7327 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+        ù hợp với ngành, lĩnh vực đào tạo của Nhà trường được Nhà trường tính toán, quy định mức thu bảo đảm nguyên tắ...
+Agent   : Căn cứ Thông báo số 703/TB-HVTC ngày 14/05/2026 về lịch tổ chức đăng ký học lại, học cải thiện điểm, học bù Học kỳ phụ năm học 2025-2026 đối với sinh viên các hệ đào tạo, Học viện Tài chính thông báo mức thu và thời gian thu học phí học lại, học cải thiện điểm, học bù Học kỳ phụ năm học 2025-2026 nh
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+--- Q4 [hỏi điều kiện / ngưỡng] ---
+Câu hỏi : Lớp học phần học lại có ít sinh viên đăng ký thì học phí tính thế nào?
+Filter  : None
+Gold    : utt-muc-thu-hoc-phi-2026-2027 — Lớp có từ 4 sinh viên trở lên: bằng mức học phí hiện hành của học phần học kỳ chính. Lớp có dưới 4 sinh viên: bằng 2,5 lần mức học phí hiện hành.
+  top1 score=+0.7847 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  <<< GOLD
+        ù hợp với ngành, lĩnh vực đào tạo của Nhà trường được Nhà trường tính toán, quy định mức thu bảo đảm nguyên tắ...
+  top2 score=+0.7762 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  
+        như sau.  ## 1. Mức thu  ### 1.1. Học bù  Bằng mức thu học phí lần đầu đối với từng đối tượng.  ### 1.2. Học l...
+  top3 score=+0.7480 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  <<< GOLD
+         học 2026-2027 sẽ áp dụng mức học phí của năm học 2026-2027.  Đối với lớp học phần có **từ 4 sinh viên học lại...
+Agent   : Đối với lớp học phần có **từ 4 sinh viên học lại, học cải thiện trở lên**, mức học phí bằng mức học phí hiện hành của học phần học kỳ chính. [3] Lớp học phần có **dưới 4 sinh viên** học lại, học cải thiện thì mức học phí bằng **2,5 lần** mức học phí hiện hành của học phần học kỳ chính. [3]
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+--- Q5 [MƠ HỒ VỀ BẬC HỌC — cần metadata_filter level=postgraduate] ---
+Câu hỏi : Mức thu học phí một tháng cho một người học là bao nhiêu?
+Filter  : {'level': 'postgraduate'}
+Gold    : ussh-hoc-phi-sau-dai-hoc-2026-2027 — Thạc sĩ: 2.865.000đ/tháng/HV cho các ngành 'còn lại' (2.685.000đ với Quản trị Văn phòng, Khoa học Quản lý); tiến sĩ: 4.775.000đ/tháng/NCS. Bậc đại học là mức khác (1.910.000đ/tháng/SV).
+  top1 score=+0.7679 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        học (thu 10 tháng/năm học). - Các ngành khóa QH-2025-X còn lại (theo Nghị định 238/2025/NĐ-CP): mức thu **2.86...
+  top2 score=+0.7558 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+          ### 2.2. Chương trình tiến sĩ  Thu học phí theo Nghị định 238/2025/NĐ-CP. Mức thu: **4.775.000đ/tháng/NCS**,...
+  top3 score=+0.7429 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+         năm học (thu 10 tháng/năm học). - Các ngành đã được kiểm định chất lượng và xây dựng định mức kinh tế - kỹ th...
+Agent   : - Các ngành khóa QH-2025-X còn lại (theo Nghị định 238/2025/NĐ-CP): mức thu **2.865.000đ/tháng/HV**, thu theo tháng (thu 10 tháng/năm học). [1] Mức thu: **4.775.000đ/tháng/NCS**, thu theo tháng (thu 10 tháng/năm học). [1]
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+TỔNG fixed: doc_id-level 8/10 | nội dung-level 6/10
+
+==============================================================================
+CHIẾN LƯỢC: heading  (HeadingChunker)
+==============================================================================
+Đã nạp 39 chunk từ 5 tài liệu | độ dài TB 492 ký tự | ngắn nhất 125 | dài nhất 798
+
+--- Q1 [tra số liệu cụ thể] ---
+Câu hỏi : Sinh viên các ngành khóa QH-2023 trở về trước đóng bao nhiêu tiền một tín chỉ?
+Filter  : None
+Gold    : ussh-hoc-phi-dai-hoc-2026-2027 — 530.000đ/tín chỉ/hệ số, thu theo tín chỉ đăng ký học (theo Nghị định 238/2025/NĐ-CP).
+  top1 score=+0.8630 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        ### 1.1. Các ngành khóa QH-2023-X trở về trước  Thu học phí theo Nghị định 238/2025/NĐ-CP. Mức thu: **530.000đ...
+  top2 score=+0.8230 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        ### 3.2. Các ngành khóa QH-2024-X  Các ngành đã được kiểm định chất lượng và xây dựng định mức kinh tế - kỹ th...
+  top3 score=+0.8172 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        4.2. Các ngành khóa QH-2025-X và QH-2026-X Các ngành còn lại (thu theo Nghị định 238/2025/NĐ-CP): **530.000đ/t...
+Agent   : Các ngành khóa QH-2024-X còn lại: **700.000đ/tín chỉ**. [2] Các ngành còn lại (thu theo Nghị định 238/2025/NĐ-CP): **530.000đ/tín chỉ/hệ số**. [3]
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+--- Q2 [MƠ HỒ VỀ ĐỐI TƯỢNG — cần metadata_filter audience=student] ---
+Câu hỏi : Học phí một tín chỉ hệ vừa làm vừa học được tính như thế nào?
+Filter  : {'audience': 'student'}
+Gold    : ussh-hoc-phi-dai-hoc-2026-2027 — USSH thu 700.000đ/tín chỉ cho các ngành khóa QH-2023 trở về trước và các ngành 'còn lại' của những khóa sau; ngành đã kiểm định thu 880.000đ hoặc 1.050.000đ/tín chỉ.
+  top1 score=+0.7768 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+        ## 2. Mức học phí trình độ đại học chính quy, VLVH, liên thông  Mức học phí trình độ đại học chính quy và vừa ...
+  top2 score=+0.7765 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        ## 2. Bậc đại học hệ chính quy — sinh viên quốc tế  Đối với sinh viên quốc tế không thuộc diện hiệp định: mức ...
+  top3 score=+0.7379 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  
+        ### 1.2. Học lại, học cải thiện điểm, thực tập lại  - Đối với đào tạo hệ đại học chính quy chương trình chất l...
+Agent   : Mức học phí trình độ đại học chính quy và vừa làm vừa học đối với **các khóa 74 trở về trước**: khối ngành kinh doanh, quản lý **590.000đ/1 tín chỉ**; khối ngành CNTT, công nghệ kỹ thuật, môi trường, dịch vụ vận tải **650.000đ/1 tín chỉ**. [1] - Đào tạo chính quy chương trình chuẩn, đại học chính qu
+Chấm    : doc_id-level=1/2 | nội dung-level=1/2 | gold ở hạng 2
+
+--- Q3 [tra mốc thời gian] ---
+Câu hỏi : Thời gian nộp học phí học lại học kỳ phụ năm học 2025-2026 là khi nào?
+Filter  : None
+Gold    : hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 — Từ ngày 23/05/2026 đến hết ngày 01/06/2026 (Thông báo 731/TB-HVTC).
+  top1 score=+0.7966 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  <<< GOLD
+        # Thông báo về việc thu học phí học lại, học cải thiện điểm, học bù học kỳ phụ năm học 2025-2026 đối với sinh ...
+  top2 score=+0.7838 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+        ## 7. Học phí lớp học lại, học cải thiện  Mức học phí đối với các lớp học phần học lại, học cải thiện khóa 8.8...
+  top3 score=+0.7416 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  <<< GOLD
+        ### 1.2. Học lại, học cải thiện điểm, thực tập lại  - Đối với đào tạo hệ đại học chính quy chương trình chất l...
+Agent   : Căn cứ Thông báo số 703/TB-HVTC ngày 14/05/2026 về lịch tổ chức đăng ký học lại, học cải thiện điểm, học bù Học kỳ phụ năm học 2025-2026 đối với sinh viên các hệ đào tạo, Học viện Tài chính thông báo mức thu và thời gian thu học phí học lại, học cải thiện điểm, học bù Học kỳ phụ năm học 2025-2026 nh
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+--- Q4 [hỏi điều kiện / ngưỡng] ---
+Câu hỏi : Lớp học phần học lại có ít sinh viên đăng ký thì học phí tính thế nào?
+Filter  : None
+Gold    : utt-muc-thu-hoc-phi-2026-2027 — Lớp có từ 4 sinh viên trở lên: bằng mức học phí hiện hành của học phần học kỳ chính. Lớp có dưới 4 sinh viên: bằng 2,5 lần mức học phí hiện hành.
+  top1 score=+0.8581 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  <<< GOLD
+        ## 7. Học phí lớp học lại, học cải thiện  Mức học phí đối với các lớp học phần học lại, học cải thiện khóa 8.8...
+  top2 score=+0.7565 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  
+        ### 1.2. Học lại, học cải thiện điểm, thực tập lại  - Đối với đào tạo hệ đại học chính quy chương trình chất l...
+  top3 score=+0.7200 doc_id=ntu-khung-hoc-phi-nd238-2025 audience=all      
+        3. Cách tính học phí theo tín chỉ Trường hợp học **quá thời hạn** quy định của chương trình đào tạo, học phí t...
+Agent   : Đối với lớp học phần có **từ 4 sinh viên học lại, học cải thiện trở lên**, mức học phí bằng mức học phí hiện hành của học phần học kỳ chính. [1] Lớp học phần có **dưới 4 sinh viên** học lại, học cải thiện thì mức học phí bằng **2,5 lần** mức học phí hiện hành của học phần học kỳ chính. [1]
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+--- Q5 [MƠ HỒ VỀ BẬC HỌC — cần metadata_filter level=postgraduate] ---
+Câu hỏi : Mức thu học phí một tháng cho một người học là bao nhiêu?
+Filter  : {'level': 'postgraduate'}
+Gold    : ussh-hoc-phi-sau-dai-hoc-2026-2027 — Thạc sĩ: 2.865.000đ/tháng/HV cho các ngành 'còn lại' (2.685.000đ với Quản trị Văn phòng, Khoa học Quản lý); tiến sĩ: 4.775.000đ/tháng/NCS. Bậc đại học là mức khác (1.910.000đ/tháng/SV).
+  top1 score=+0.7561 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        ### 1.1. Chương trình thạc sĩ  - Các ngành Quản trị Văn phòng, Khoa học Quản lý (thu học phí theo Nghị định 23...
+  top2 score=+0.7369 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        ### 2.1. Chương trình thạc sĩ  - Ngành Quản trị Văn phòng (theo Nghị định 238/2025/NĐ-CP): **2.685.000đ/tháng/...
+  top3 score=+0.7349 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        ## 3. Học viên là người nước ngoài  - Thạc sĩ hệ chuẩn: **67.500.000đ/năm học/HV**. - Tiến sĩ hệ chuẩn: **90.0...
+Agent   : - Các ngành Quản trị Văn phòng, Khoa học Quản lý (thu học phí theo Nghị định 238/2025/NĐ-CP): mức thu **2.685.000đ/tháng/HV**, thu theo năm học (thu 10 tháng/năm học). [1] - Các ngành khóa QH-2025-X còn lại (theo Nghị định 238/2025/NĐ-CP): mức thu **2.865.000đ/tháng/HV**, thu theo tháng (thu 10 thán
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+TỔNG heading: doc_id-level 9/10 | nội dung-level 9/10
+
+==============================================================================
+CHIẾN LƯỢC: recursive  (RecursiveChunker)
+==============================================================================
+Đã nạp 40 chunk từ 5 tài liệu | độ dài TB 467 ký tự | ngắn nhất 197 | dài nhất 599
+
+--- Q1 [tra số liệu cụ thể] ---
+Câu hỏi : Sinh viên các ngành khóa QH-2023 trở về trước đóng bao nhiêu tiền một tín chỉ?
+Filter  : None
+Gold    : ussh-hoc-phi-dai-hoc-2026-2027 — 530.000đ/tín chỉ/hệ số, thu theo tín chỉ đăng ký học (theo Nghị định 238/2025/NĐ-CP).
+  top1 score=+0.8302 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        Mức thu: **700.000đ/tín chỉ**. Hình thức thu: thu theo tín chỉ đăng ký học.  ### 3.2. Các ngành khóa QH-2024-X...
+  top2 score=+0.8122 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        Riêng khóa QH-2026-X, các ngành áp dụng chính thức sau khi được Đại học Quốc gia phê duyệt: ngành Hàn Quốc học...
+  top3 score=+0.8071 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+        ## 2. Mức học phí trình độ đại học chính quy, VLVH, liên thông  Mức học phí trình độ đại học chính quy và vừa ...
+Agent   : Mức học phí trình độ đại học chính quy và vừa làm vừa học đối với **các khóa 74 trở về trước**: khối ngành kinh doanh, quản lý **590.000đ/1 tín chỉ**; khối ngành CNTT, công nghệ kỹ thuật, môi trường, dịch vụ vận tải **650.000đ/1 tín chỉ**. [3] Các ngành khóa QH-2024-X còn lại: **700.000đ/tín chỉ**. 
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+--- Q2 [MƠ HỒ VỀ ĐỐI TƯỢNG — cần metadata_filter audience=student] ---
+Câu hỏi : Học phí một tín chỉ hệ vừa làm vừa học được tính như thế nào?
+Filter  : {'audience': 'student'}
+Gold    : ussh-hoc-phi-dai-hoc-2026-2027 — USSH thu 700.000đ/tín chỉ cho các ngành khóa QH-2023 trở về trước và các ngành 'còn lại' của những khóa sau; ngành đã kiểm định thu 880.000đ hoặc 1.050.000đ/tín chỉ.
+  top1 score=+0.7768 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+        ## 2. Mức học phí trình độ đại học chính quy, VLVH, liên thông  Mức học phí trình độ đại học chính quy và vừa ...
+  top2 score=+0.7528 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  
+        ### 1.2. Học lại, học cải thiện điểm, thực tập lại  - Đối với đào tạo hệ đại học chính quy chương trình chất l...
+  top3 score=+0.7342 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+        ## 7. Học phí lớp học lại, học cải thiện  Mức học phí đối với các lớp học phần học lại, học cải thiện khóa 8.8...
+Agent   : Mức học phí trình độ đại học chính quy và vừa làm vừa học đối với **các khóa 74 trở về trước**: khối ngành kinh doanh, quản lý **590.000đ/1 tín chỉ**; khối ngành CNTT, công nghệ kỹ thuật, môi trường, dịch vụ vận tải **650.000đ/1 tín chỉ**. [1] - Đào tạo chính quy chương trình chuẩn, đại học chính qu
+Chấm    : doc_id-level=0/2 | nội dung-level=0/2 | gold ở hạng KHÔNG CÓ TRONG TOP-3
+          thiếu trong ngữ cảnh: ['700.000đ/tín chỉ']
+
+--- Q3 [tra mốc thời gian] ---
+Câu hỏi : Thời gian nộp học phí học lại học kỳ phụ năm học 2025-2026 là khi nào?
+Filter  : None
+Gold    : hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 — Từ ngày 23/05/2026 đến hết ngày 01/06/2026 (Thông báo 731/TB-HVTC).
+  top1 score=+0.7966 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  <<< GOLD
+        # Thông báo về việc thu học phí học lại, học cải thiện điểm, học bù học kỳ phụ năm học 2025-2026 đối với sinh ...
+  top2 score=+0.7838 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+        ## 7. Học phí lớp học lại, học cải thiện  Mức học phí đối với các lớp học phần học lại, học cải thiện khóa 8.8...
+  top3 score=+0.7409 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  <<< GOLD
+        1. Chọn menu "Tài chính" rồi chọn "Đăng ký nộp tiền trực tuyến". 2. Chọn Học kỳ phụ năm học 2025-2026, học lại...
+Agent   : Căn cứ Thông báo số 703/TB-HVTC ngày 14/05/2026 về lịch tổ chức đăng ký học lại, học cải thiện điểm, học bù Học kỳ phụ năm học 2025-2026 đối với sinh viên các hệ đào tạo, Học viện Tài chính thông báo mức thu và thời gian thu học phí học lại, học cải thiện điểm, học bù Học kỳ phụ năm học 2025-2026 nh
+Chấm    : doc_id-level=2/2 | nội dung-level=0/2 | gold ở hạng 1
+          thiếu trong ngữ cảnh: ['23/05/2026 đến hết ngày 01/06/2026']
+
+--- Q4 [hỏi điều kiện / ngưỡng] ---
+Câu hỏi : Lớp học phần học lại có ít sinh viên đăng ký thì học phí tính thế nào?
+Filter  : None
+Gold    : utt-muc-thu-hoc-phi-2026-2027 — Lớp có từ 4 sinh viên trở lên: bằng mức học phí hiện hành của học phần học kỳ chính. Lớp có dưới 4 sinh viên: bằng 2,5 lần mức học phí hiện hành.
+  top1 score=+0.8581 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  <<< GOLD
+        ## 7. Học phí lớp học lại, học cải thiện  Mức học phí đối với các lớp học phần học lại, học cải thiện khóa 8.8...
+  top2 score=+0.7664 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  
+        ### 1.2. Học lại, học cải thiện điểm, thực tập lại  - Đối với đào tạo hệ đại học chính quy chương trình chất l...
+  top3 score=+0.7216 doc_id=ntu-khung-hoc-phi-nd238-2025 audience=all      
+        Trường hợp học trực tuyến, cơ sở giáo dục đại học xác định mức thu học phí trên cơ sở chi phí phát sinh thực t...
+Agent   : Đối với lớp học phần có **từ 4 sinh viên học lại, học cải thiện trở lên**, mức học phí bằng mức học phí hiện hành của học phần học kỳ chính. [1] Lớp học phần có **dưới 4 sinh viên** học lại, học cải thiện thì mức học phí bằng **2,5 lần** mức học phí hiện hành của học phần học kỳ chính. [1]
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+--- Q5 [MƠ HỒ VỀ BẬC HỌC — cần metadata_filter level=postgraduate] ---
+Câu hỏi : Mức thu học phí một tháng cho một người học là bao nhiêu?
+Filter  : {'level': 'postgraduate'}
+Gold    : ussh-hoc-phi-sau-dai-hoc-2026-2027 — Thạc sĩ: 2.865.000đ/tháng/HV cho các ngành 'còn lại' (2.685.000đ với Quản trị Văn phòng, Khoa học Quản lý); tiến sĩ: 4.775.000đ/tháng/NCS. Bậc đại học là mức khác (1.910.000đ/tháng/SV).
+  top1 score=+0.7555 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        ### 2.2. Chương trình tiến sĩ  Thu học phí theo Nghị định 238/2025/NĐ-CP. Mức thu: **4.775.000đ/tháng/NCS**, t...
+  top2 score=+0.7493 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        - Các ngành Quản trị Văn phòng, Khoa học Quản lý (thu học phí theo Nghị định 238/2025/NĐ-CP): mức thu **2.685....
+  top3 score=+0.7300 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        - Ngành Quản trị Văn phòng (theo Nghị định 238/2025/NĐ-CP): **2.685.000đ/tháng/HV**, thu theo năm học (thu 10 ...
+Agent   : - Các ngành Quản trị Văn phòng, Khoa học Quản lý (thu học phí theo Nghị định 238/2025/NĐ-CP): mức thu **2.685.000đ/tháng/HV**, thu theo năm học (thu 10 tháng/năm học). [2] Mức thu: **4.775.000đ/tháng/NCS**, thu theo tháng (thu 10 tháng/năm học). [1]
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+TỔNG recursive: doc_id-level 8/10 | nội dung-level 6/10
+
+==============================================================================
+CHIẾN LƯỢC: sentence  (SentenceChunker)
+==============================================================================
+Đã nạp 54 chunk từ 5 tài liệu | độ dài TB 345 ký tự | ngắn nhất 72 | dài nhất 797
+
+--- Q1 [tra số liệu cụ thể] ---
+Câu hỏi : Sinh viên các ngành khóa QH-2023 trở về trước đóng bao nhiêu tiền một tín chỉ?
+Filter  : None
+Gold    : ussh-hoc-phi-dai-hoc-2026-2027 — 530.000đ/tín chỉ/hệ số, thu theo tín chỉ đăng ký học (theo Nghị định 238/2025/NĐ-CP).
+  top1 score=+0.8505 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        ## 3. Bậc đại học hệ vừa làm vừa học  ### 3.1. Các ngành khóa QH-2023-X trở về trước  Mức thu: **700.000đ/tín ...
+  top2 score=+0.8488 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        Bậc đại học hệ chính quy — sinh viên Việt Nam  ### 1.1. Các ngành khóa QH-2023-X trở về trước  Thu học phí the...
+  top3 score=+0.8074 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        Bậc đại học hệ chính quy ngành thứ 2  ### 4.1. Các ngành khóa QH-2024-X trở về trước  Thu học phí theo Nghị đị...
+Agent   : Mức thu: **700.000đ/tín chỉ**. [1] Bậc đại học hệ chính quy — sinh viên Việt Nam [2]
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+--- Q2 [MƠ HỒ VỀ ĐỐI TƯỢNG — cần metadata_filter audience=student] ---
+Câu hỏi : Học phí một tín chỉ hệ vừa làm vừa học được tính như thế nào?
+Filter  : {'audience': 'student'}
+Gold    : ussh-hoc-phi-dai-hoc-2026-2027 — USSH thu 700.000đ/tín chỉ cho các ngành khóa QH-2023 trở về trước và các ngành 'còn lại' của những khóa sau; ngành đã kiểm định thu 880.000đ hoặc 1.050.000đ/tín chỉ.
+  top1 score=+0.8350 doc_id=ussh-hoc-phi-dai-hoc-2026-2027 audience=student  <<< GOLD
+        ## 3. Bậc đại học hệ vừa làm vừa học  ### 3.1. Các ngành khóa QH-2023-X trở về trước  Mức thu: **700.000đ/tín ...
+  top2 score=+0.7618 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  
+        ### 1.2. Học lại, học cải thiện điểm, thực tập lại  - Đối với đào tạo hệ đại học chính quy chương trình chất l...
+  top3 score=+0.7503 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+        Mức học phí trình độ đại học hình thức đào tạo từ xa  **590.000đ/1 tín chỉ**. ## 4. Các lớp tăng cường ngoại n...
+Agent   : - Đào tạo chính quy chương trình chuẩn, đại học chính quy diện đặt hàng học cùng chương trình chuẩn; hệ 3 tây, bộ đội, liên thông đại học; đại học văn bằng 2; đại học vừa làm vừa học: **840.000đ/tín chỉ**. [2] - Đối với đào tạo hệ đại học chính quy chương trình chất lượng cao; đại học chính quy diện
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+--- Q3 [tra mốc thời gian] ---
+Câu hỏi : Thời gian nộp học phí học lại học kỳ phụ năm học 2025-2026 là khi nào?
+Filter  : None
+Gold    : hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 — Từ ngày 23/05/2026 đến hết ngày 01/06/2026 (Thông báo 731/TB-HVTC).
+  top1 score=+0.8500 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  <<< GOLD
+        2. Chọn Học kỳ phụ năm học 2025-2026, học lại, học cải thiện, học bù. 3....
+  top2 score=+0.8062 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  <<< GOLD
+        # Thông báo về việc thu học phí học lại, học cải thiện điểm, học bù học kỳ phụ năm học 2025-2026 đối với sinh ...
+  top3 score=+0.7891 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  
+        ## 7. Học phí lớp học lại, học cải thiện  Mức học phí đối với các lớp học phần học lại, học cải thiện khóa 8.8...
+Agent   : Căn cứ Thông báo số 703/TB-HVTC ngày 14/05/2026 về lịch tổ chức đăng ký học lại, học cải thiện điểm, học bù Học kỳ phụ năm học 2025-2026 đối với sinh viên các hệ đào tạo, Học viện Tài chính thông báo mức thu và thời gian thu học phí học lại, học cải thiện điểm, học bù Học kỳ phụ năm học 2025-2026 nh
+Chấm    : doc_id-level=2/2 | nội dung-level=0/2 | gold ở hạng 1
+          thiếu trong ngữ cảnh: ['23/05/2026 đến hết ngày 01/06/2026']
+
+--- Q4 [hỏi điều kiện / ngưỡng] ---
+Câu hỏi : Lớp học phần học lại có ít sinh viên đăng ký thì học phí tính thế nào?
+Filter  : None
+Gold    : utt-muc-thu-hoc-phi-2026-2027 — Lớp có từ 4 sinh viên trở lên: bằng mức học phí hiện hành của học phần học kỳ chính. Lớp có dưới 4 sinh viên: bằng 2,5 lần mức học phí hiện hành.
+  top1 score=+0.8588 doc_id=utt-muc-thu-hoc-phi-2026-2027 audience=student  <<< GOLD
+        ## 7. Học phí lớp học lại, học cải thiện  Mức học phí đối với các lớp học phần học lại, học cải thiện khóa 8.8...
+  top2 score=+0.7748 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  
+        ### 1.2. Học lại, học cải thiện điểm, thực tập lại  - Đối với đào tạo hệ đại học chính quy chương trình chất l...
+  top3 score=+0.7673 doc_id=hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026 audience=student  
+        ## 1. Mức thu  ### 1.1. Học bù  Bằng mức thu học phí lần đầu đối với từng đối tượng....
+Agent   : Đối với lớp học phần có **từ 4 sinh viên học lại, học cải thiện trở lên**, mức học phí bằng mức học phí hiện hành của học phần học kỳ chính. [1] Mức học phí đối với các lớp học phần học lại, học cải thiện khóa 8.8 được áp dụng theo quy định của năm học 2025-2026; mức học phí đối với các lớp học phần
+Chấm    : doc_id-level=2/2 | nội dung-level=0/2 | gold ở hạng 1
+          thiếu trong ngữ cảnh: ['dưới 4 sinh viên', '2,5 lần']
+
+--- Q5 [MƠ HỒ VỀ BẬC HỌC — cần metadata_filter level=postgraduate] ---
+Câu hỏi : Mức thu học phí một tháng cho một người học là bao nhiêu?
+Filter  : {'level': 'postgraduate'}
+Gold    : ussh-hoc-phi-sau-dai-hoc-2026-2027 — Thạc sĩ: 2.865.000đ/tháng/HV cho các ngành 'còn lại' (2.685.000đ với Quản trị Văn phòng, Khoa học Quản lý); tiến sĩ: 4.775.000đ/tháng/NCS. Bậc đại học là mức khác (1.910.000đ/tháng/SV).
+  top1 score=+0.7596 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        Thu theo năm học (thu 10 tháng/năm học). - Các ngành khóa QH-2026-X còn lại (theo Nghị định 238/2025/NĐ-CP): *...
+  top2 score=+0.7524 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        Chương trình tiến sĩ  Thu học phí theo Nghị định 238/2025/NĐ-CP. Mức thu: **4.775.000đ/tháng/NCS**, thu theo t...
+  top3 score=+0.7519 doc_id=ussh-hoc-phi-sau-dai-hoc-2026-2027 audience=student  <<< GOLD
+        Chương trình tiến sĩ  Thu học phí theo Nghị định 238/2025/NĐ-CP. Mức thu: **4.775.000đ/tháng/NCS**, thu theo t...
+Agent   : Mức thu: **4.775.000đ/tháng/NCS**, thu theo tháng (thu 10 tháng/năm học). [2] Mức thu: **4.775.000đ/tháng/NCS**, thu theo tháng (thu 10 tháng/năm học). [3]
+Chấm    : doc_id-level=2/2 | nội dung-level=2/2 | gold ở hạng 1
+
+TỔNG sentence: doc_id-level 10/10 | nội dung-level 6/10
+
+==============================================================================
+A/B METADATA FILTER — Q2: Học phí một tín chỉ hệ vừa làm vừa học được tính như thế nào?
+filter = {'audience': 'student'}
+==============================================================================
+fixed      KHÔNG filter  -> utt-muc-thu-hoc-phi-2026-2027[audience=student] +0.796 | ntu-khung-hoc-phi-nd238-2025[audience=all] +0.770 | ntu-khung-hoc-phi-nd238-2025[audience=all] +0.764
+                            nội dung-level 0/2, thiếu=['700.000đ/tín chỉ']
+fixed      CÓ filter     -> utt-muc-thu-hoc-phi-2026-2027[audience=student] +0.796 | utt-muc-thu-hoc-phi-2026-2027[audience=student] +0.743 | hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026[audience=student] +0.736
+                            nội dung-level 0/2, thiếu=['700.000đ/tín chỉ']
+heading    KHÔNG filter  -> ntu-khung-hoc-phi-nd238-2025[audience=all] +0.804 | ntu-khung-hoc-phi-nd238-2025[audience=all] +0.779 | ntu-khung-hoc-phi-nd238-2025[audience=all] +0.778
+                            nội dung-level 0/2, thiếu=['700.000đ/tín chỉ']
+heading    CÓ filter     -> utt-muc-thu-hoc-phi-2026-2027[audience=student] +0.777 | ussh-hoc-phi-dai-hoc-2026-2027[audience=student] +0.776 | hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026[audience=student] +0.738
+                            nội dung-level 1/2, thiếu=không
+recursive  KHÔNG filter  -> ntu-khung-hoc-phi-nd238-2025[audience=all] +0.786 | ntu-khung-hoc-phi-nd238-2025[audience=all] +0.782 | utt-muc-thu-hoc-phi-2026-2027[audience=student] +0.777
+                            nội dung-level 0/2, thiếu=['700.000đ/tín chỉ']
+recursive  CÓ filter     -> utt-muc-thu-hoc-phi-2026-2027[audience=student] +0.777 | hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026[audience=student] +0.753 | utt-muc-thu-hoc-phi-2026-2027[audience=student] +0.734
+                            nội dung-level 0/2, thiếu=['700.000đ/tín chỉ']
+sentence   KHÔNG filter  -> ussh-hoc-phi-dai-hoc-2026-2027[audience=student] +0.835 | ntu-khung-hoc-phi-nd238-2025[audience=all] +0.810 | ntu-khung-hoc-phi-nd238-2025[audience=all] +0.767
+                            nội dung-level 2/2, thiếu=không
+sentence   CÓ filter     -> ussh-hoc-phi-dai-hoc-2026-2027[audience=student] +0.835 | hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026[audience=student] +0.762 | utt-muc-thu-hoc-phi-2026-2027[audience=student] +0.750
+                            nội dung-level 2/2, thiếu=không
+
+==============================================================================
+A/B METADATA FILTER — Q5: Mức thu học phí một tháng cho một người học là bao nhiêu?
+filter = {'level': 'postgraduate'}
+==============================================================================
+fixed      KHÔNG filter  -> ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.768 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.756 | ussh-hoc-phi-dai-hoc-2026-2027[level=undergraduate] +0.745
+                            nội dung-level 2/2, thiếu=không
+fixed      CÓ filter     -> ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.768 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.756 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.743
+                            nội dung-level 2/2, thiếu=không
+heading    KHÔNG filter  -> ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.756 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.737 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.735
+                            nội dung-level 2/2, thiếu=không
+heading    CÓ filter     -> ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.756 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.737 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.735
+                            nội dung-level 2/2, thiếu=không
+recursive  KHÔNG filter  -> ntu-khung-hoc-phi-nd238-2025[level=any] +0.757 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.755 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.749
+                            nội dung-level 1/2, thiếu=không
+recursive  CÓ filter     -> ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.755 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.749 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.730
+                            nội dung-level 2/2, thiếu=không
+sentence   KHÔNG filter  -> ussh-hoc-phi-dai-hoc-2026-2027[level=undergraduate] +0.783 | ussh-hoc-phi-dai-hoc-2026-2027[level=undergraduate] +0.771 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.760
+                            nội dung-level 1/2, thiếu=không
+sentence   CÓ filter     -> ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.760 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.752 | ussh-hoc-phi-sau-dai-hoc-2026-2027[level=postgraduate] +0.752
+                            nội dung-level 2/2, thiếu=không
+
+Da ghi du lieu co cau truc vao demo\benchmark.json
+
+==============================================================================
+SO SÁNH GIỮA CÁC CHIẾN LƯỢC
+==============================================================================
+Chiến lược    chunk   avg_len   min   max   doc_id-level   nội dung-level
+fixed            40       556   115   600           8/10             6/10
+heading          39       492   125   798           9/10             9/10
+recursive        40       467   197   599           8/10             6/10
+sentence         54       345    72   797          10/10             6/10
+
+==============================================================================
+BASELINE — ChunkingStrategyComparator().compare(), chunk_size=600
+(đã bỏ frontmatter, chỉ đo phần thân)
+==============================================================================
+Tài liệu                                Chiến lược      count   avg_len    min    max
+hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026   fixed_size          4     573.8    495    600
+hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026   by_sentences        9     233.2     72    507
+hvtc-hoc-phi-hoc-lai-ky-phu-2025-2026   recursive           5     421.4    197    594
+ntu-khung-hoc-phi-nd238-2025            fixed_size         10     575.9    359    600
+ntu-khung-hoc-phi-nd238-2025            by_sentences       10     519.4    314    670
+ntu-khung-hoc-phi-nd238-2025            recursive          12     433.1    289    581
+ussh-hoc-phi-dai-hoc-2026-2027          fixed_size         10     589.5    495    600
+ussh-hoc-phi-dai-hoc-2026-2027          by_sentences       19     279.9     82    720
+ussh-hoc-phi-dai-hoc-2026-2027          recursive          11     485.0    265    599
